@@ -67,6 +67,29 @@ createRoot(document.getElementById('root')!).render(
 
 Add a `<div id="root"></div>` to your HTML entrypoint. Run your app and press **→** to reveal the second step. Open `/?print` to print all steps. Add scenes to the `scenes` array, then style them with your own CSS after the package styles. See the [getting started guide](docs/getting-started.md) for presenter notes and a fuller setup, the [authoring guide](docs/authoring.md) for composition patterns, and the [API reference](docs/api.md) for the public exports.
 
+## Build a presentation with an AI agent
+
+This repository includes an [agent guide](AGENTS.md) and two task-specific skills. They are also included in the npm package, but agents do not automatically load skills from installed dependencies. Point your agent to these files in a checkout:
+
+| File | What the agent learns |
+| --- | --- |
+| [Create a presentation](.agents/skills/create-presentation/SKILL.md) | Plan scenes and steps, compose reusable components, write one speaker cue per step, and check navigation, notes, print, and screenshots. |
+| [Deploy a presentation](.agents/skills/deploy-presentation/SKILL.md) | Set up Cloudflare or Vercel, including the optional WebSocket relay and private notes. |
+
+Start with a new React/Vite app and the [getting started guide](docs/getting-started.md). The neutral [`demo/src`](demo/src) shows scenes, notes, and a theme working together. Give an agent a request like this:
+
+```text
+Read AGENTS.md and .agents/skills/create-presentation/SKILL.md in the
+Compose Slides repository. Build a presentation for [audience] about [topic]
+in a separate React/Vite app using compose-slides. Use the demo as a reference.
+Create reusable scene components, define each reveal as a step, and write
+presenter notes with one cue per step. Keep my content and assets in the new
+app. Check the deck, presenter view at desktop and phone widths, and print
+mode; then build, typecheck, lint, and show me representative screenshots.
+```
+
+When the deck is ready to host, ask the agent to follow the [deployment skill](.agents/skills/deploy-presentation/SKILL.md) and name Cloudflare or Vercel as the target.
+
 ## Live sync and WebSockets
 
 Without a control key, the deck and notes use `BroadcastChannel` for same-browser communication. With a key, each opens a WebSocket at `/ws?k=…`. The deck owns the current position and timer; the presenter sends commands or raw keys back, so scene-specific keyboard shortcuts still work. The client reconnects after network loss or phone sleep and sends a hello message to recover the latest state.
