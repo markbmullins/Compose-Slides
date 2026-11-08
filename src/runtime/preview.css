@@ -1,0 +1,68 @@
+/* A live scene thumbnail is optional. The speaker can keep it beside the cue on a wide display. */
+.pv-preview {
+  display: none;
+}
+@media (min-width: 1050px) {
+  .pv-preview {
+    display: block;
+    position: absolute;
+    right: max(42px, calc((100vw - 1440px) / 2 + 64px));
+    top: calc(var(--pv-top) + 34px);
+    width: min(44vw, 640px);
+    padding: 18px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    box-shadow: 0 24px 60px #0003;
+  }
+  .pv-preview-head,
+  .pv-preview-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: 600 12px var(--font-mono);
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+  }
+  .pv-preview-head {
+    margin-bottom: 14px;
+  }
+  .pv-preview-head span:first-child {
+    color: var(--accent);
+  }
+  .pv-preview-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 7px;
+    background: var(--stage);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .pv-preview-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 1080px;
+    transform-origin: top left;
+    pointer-events: none;
+  }
+  .pv-preview-foot {
+    margin-top: 14px;
+  }
+  .pv-preview-foot span:first-child {
+    color: var(--text);
+    font-size: 15px;
+    letter-spacing: 0;
+  }
+}
+@media (min-width: 1050px) {
+  .pv-has-preview .pv-fold,
+  .pv-has-preview .pv-more {
+    width: calc(50vw - 95px);
+    max-width: 650px;
+    margin-left: max(42px, calc((100vw - 1440px) / 2 + 64px));
+    margin-right: 0;
+  }
+}

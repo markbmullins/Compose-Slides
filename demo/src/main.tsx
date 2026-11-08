@@ -1,26 +1,49 @@
 import { StrictMode, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Deck, PrintDeck, controlKey, forceReducedMotion, loadProtectedNotes, readPrintOptions } from '../../src';
+import {
+  Deck,
+  PrintDeck,
+  controlKey,
+  forceReducedMotion,
+  loadProtectedNotes,
+  readPrintOptions,
+} from '../../src';
 import type { NotesMap } from '../../src';
 import { scenes } from './scenes';
 import { Gallery, galleryIds } from './gallery';
 import '../../src/styles/theme.css';
 import './theme.css';
+import '../../src/runtime/preview.css';
 
 const PresenterView = lazy(() => import('../../src/presenter'));
 const PairView = lazy(() => import('../../src/pair'));
 const print = readPrintOptions();
 if (print) forceReducedMotion();
-const loadNotes = (): Promise<NotesMap> => controlKey() ? loadProtectedNotes() : import('./notes').then((m) => m.notes);
+const loadNotes = (): Promise<NotesMap> =>
+  controlKey() ? loadProtectedNotes() : import('./notes').then((m) => m.notes);
 function App() {
   const gallery = new URLSearchParams(location.search).get('gallery');
-  if (gallery && galleryIds.includes(gallery as typeof galleryIds[number])) return <Gallery id={gallery as typeof galleryIds[number]} />;
+  if (gallery && galleryIds.includes(gallery as (typeof galleryIds)[number]))
+    return <Gallery id={gallery as (typeof galleryIds)[number]} />;
   if (print) return <PrintDeck scenes={scenes} options={print} />;
   const params = new URLSearchParams(location.search);
   const presenter = params.has('presenter');
   if (params.has('pair'))
-    return <Suspense fallback={null}><PairView next={presenter ? 'presenter' : 'deck'} verify={!import.meta.env.DEV} /></Suspense>;
-  if (presenter) return <Suspense fallback={null}><PresenterView scenes={scenes} loadNotes={loadNotes} /></Suspense>;
+    return (
+      <Suspense fallback={null}>
+        <PairView next={presenter ? 'presenter' : 'deck'} verify={!import.meta.env.DEV} />
+      </Suspense>
+    );
+  if (presenter)
+    return (
+      <Suspense fallback={null}>
+        <PresenterView scenes={scenes} loadNotes={loadNotes} showPreview />
+      </Suspense>
+    );
   return <Deck scenes={scenes} />;
 }
-createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>);
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);

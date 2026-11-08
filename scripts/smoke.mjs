@@ -18,9 +18,14 @@ try {
   const presenter = await context.newPage();
   await presenter.goto(`${base}/?presenter`);
   await presenter.getByText('Say now').waitFor();
+  await presenter.locator('.pv-preview').waitFor();
   assert.match(await presenter.locator('.pv-where').innerText(), /Signal\s+1\/3/);
   await presenter.getByRole('button', { name: 'Next →' }).click();
   await deck.waitForFunction(() => location.hash === '#signal/1');
+  await presenter.getByText('STEP 02 / 03').waitFor();
+  await presenter.setViewportSize({ width: 390, height: 844 });
+  assert.equal(await presenter.locator('.pv-preview').isVisible(), false);
+  assert.equal(await presenter.getByRole('button', { name: 'Next →' }).isVisible(), true);
   const print = await context.newPage();
   await print.goto(`${base}/?print=final&scenes=title,close`);
   await print.locator('.print-page').first().waitFor();

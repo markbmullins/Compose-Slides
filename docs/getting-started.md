@@ -82,6 +82,8 @@ createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictM
 
 Start Vite. The audience deck is at `/`; `/?presenter` shows notes in a second window; `/?print` renders all steps for printing; `/?print=final` renders the final step of each scene. Two windows in the same browser synchronize through `BroadcastChannel`. Cross-device control uses the optional [WebSocket relay](sync.md) and [deployment skill](../.agents/skills/deploy-presentation/SKILL.md).
 
+Import `compose-slides/preview.css` and set `showPreview` on `PresenterView` to show the current slide beside the notes on wide screens. This renders the scene a second time, so leave it off for scenes that perform side effects on mount.
+
 ## 5. Customize the presentation
 
 Load your own CSS after the two package styles to override tokens such as `--accent`, `--stage`, and `--font-sans`. Add scenes to `src/scenes.tsx`; use `Reveal`, `StepSequence`, or your own React components for staged content. The stage has a fixed 1920 × 1080 logical size and scales to fit the screen. For the full component contracts, see the [API reference](api.md).

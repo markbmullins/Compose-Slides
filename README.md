@@ -1,14 +1,16 @@
 # Compose Slides
 
-**Presentations that feel like a product, built from small React scenes.**
+**Code the moments between your slides.**
 
-Compose Slides supplies a fixed 1920 × 1080 stage, step-based navigation, motion primitives, presenter notes, a timer, print/PDF mode, and optional live control across devices. The included *Fieldnotes* presentation is neutral example content you can replace.
+Some slides need timing. You want the chart to build while you explain it, the next branch to wait its turn, and your notes to follow on a second screen. Compose Slides handles those mechanics in React, then prints every step cleanly.
 
-![Fieldnotes opening slide](docs/images/opening.png)
+The screenshots come from *Fieldnotes*, a working demo about two routes through the same neighborhood. The travel times are synthetic.
 
-| Data, clearly framed | A story in steps |
+![Fieldnotes title slide showing two routes to the same destination](docs/images/opening.png)
+
+| 18 minutes → 7 minutes | Three changes, revealed in sequence |
 | --- | --- |
-| ![A metric slide from the demo](docs/images/signal.png) | ![A three-part method slide](docs/images/method.png) |
+| ![Illustrative route time comparison](docs/images/signal.png) | ![Three illustrated steps in the route study](docs/images/method.png) |
 
 ## Try the demo
 
@@ -21,11 +23,13 @@ Open the address Vite prints. Use **→ / Space** to advance a step, **←** to 
 
 ## Presenter view
 
-| Desktop notes | Phone notes |
+| On your laptop | On your phone |
 | --- | --- |
-| ![Presenter notes on desktop](docs/images/presenter-desktop.png) | ![Presenter notes on a phone](docs/images/presenter-phone.png) |
+| ![Desktop presenter view with live slide preview and speaking cue](docs/images/presenter-desktop.png) | ![Phone presenter view with speaking cue and navigation](docs/images/presenter-phone.png) |
 
-The presenter view shows the current spoken cue, next cue, section timing, a timer, likely questions, and navigation. Notes are supplied by your presentation. The demo loads them only when the presenter view opens. For a private production deck, `loadProtectedNotes` fetches them from a key-protected endpoint so they never enter public static assets.
+Open `/?presenter` to see the current cue, a live slide preview, the next line, prepared answers, and the timer. On a phone, the preview gives way to a wider cue and thumb-sized controls. The preview is opt-in: pass `showPreview` and load `compose-slides/preview.css`.
+
+Notes load when the presenter view opens. For a private deck, `loadProtectedNotes` fetches them from a protected endpoint so they stay out of public static assets.
 
 ## Install and use
 

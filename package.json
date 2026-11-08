@@ -33,13 +33,17 @@
       "types": "./dist/css.d.ts",
       "default": "./dist/styles.css"
     },
+    "./preview.css": {
+      "types": "./dist/css.d.ts",
+      "default": "./dist/preview.css"
+    },
     "./cloudflare": {
       "types": "./dist/cloudflare/relay.d.ts",
       "import": "./dist/cloudflare/relay.js"
     }
   },
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json && cp src/styles/theme.css dist/theme.css && cp src/styles/css.d.ts dist/css.d.ts",
+    "build": "vite build && tsc -p tsconfig.build.json && cp src/styles/theme.css dist/theme.css && cp src/styles/css.d.ts dist/css.d.ts && cp src/runtime/preview.css dist/preview.css",
     "dev": "vite --config demo/vite.config.ts",
     "demo:build": "vite build --config demo/vite.config.ts",
     "typecheck": "tsc -p tsconfig.build.json --noEmit && tsc -p tsconfig.demo.json",

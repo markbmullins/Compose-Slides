@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import type { SceneDef } from './types';
+import { STAGE_WIDTH, type SceneDef } from './types';
 import { stepCue, type NotesMap } from './notes';
 import TimerModal from './TimerModal';
 import type { TimerOp } from './timer';
@@ -45,13 +45,46 @@ function FitText({ children, deps, big }: { children: ReactNode; deps: unknown; 
   return <div className="pv-fit" ref={box}>{children}</div>;
 }
 
+function SlidePreview({ scene, step, count }: { scene: SceneDef; step: number; count: number }) {
+  const box = useRef<HTMLDivElement>(null);
+  const [wide, setWide] = useState(() => typeof window !== 'undefined' && matchMedia('(min-width: 1050px)').matches);
+  const [scale, setScale] = useState(0.32);
+  useEffect(() => {
+    const query = matchMedia('(min-width: 1050px)');
+    const update = () => setWide(query.matches);
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
+  useLayoutEffect(() => {
+    if (!wide) return;
+    const el = box.current;
+    if (!el) return;
+    const fit = () => setScale(el.clientWidth / STAGE_WIDTH);
+    const observer = new ResizeObserver(fit);
+    observer.observe(el);
+    fit();
+    return () => observer.disconnect();
+  }, [wide]);
+  if (!wide) return null;
+  const Component = scene.Component;
+  return <aside className="pv-preview" aria-label="Current slide preview">
+    <div className="pv-preview-head"><span>ON STAGE</span><span>LIVE PREVIEW ●</span></div>
+    <div className="pv-preview-stage" ref={box} aria-hidden="true">
+      <div className="pv-preview-canvas" style={{ transform: `scale(${scale})` }}>
+        <Component step={step} setStepCount={() => {}} goToStep={() => {}} />
+      </div>
+    </div>
+    <div className="pv-preview-foot"><span>{scene.label}</span><span>STEP {String(step + 1).padStart(2, '0')} / {String(count).padStart(2, '0')}</span></div>
+  </aside>;
+}
+
 /**
  * `/?presenter`: speaker notes for whatever the audience window is showing.
  * Open it in a second window on your own screen. Arrow keys here drive the deck.
  */
 export interface PresenterControl { label: string; key: string }
 
-export default function PresenterView({ scenes, loadNotes, sceneControls }: { scenes: SceneDef[]; loadNotes: () => Promise<NotesMap>; sceneControls?: Record<string, PresenterControl[]> }) {
+export default function PresenterView({ scenes, loadNotes, sceneControls, showPreview = false }: { scenes: SceneDef[]; loadNotes: () => Promise<NotesMap>; sceneControls?: Record<string, PresenterControl[]>; showPreview?: boolean }) {
   const [pos, setPos] = useState<DeckPosition | null>(null);
   const recvAt = useRef(Date.now());
   const [timerOpen, setTimerOpen] = useState(false);
@@ -182,7 +215,7 @@ export default function PresenterView({ scenes, loadNotes, sceneControls }: { sc
   const shortStatus = legacy ? 'reload laptop deck' : !started ? 'tap to start' : paused ? 'paused' : over > 0 ? `+${mmss(over)} over` : status.toLowerCase();
 
   return (
-    <div className="pv">
+    <div className={`pv${showPreview ? ' pv-has-preview' : ''}`}>
       <header className="pv-top">
         <span className="pv-where">{scene.label} <b>{pos.step + 1}/{pos.stepCount}</b></span>
         <span className="pv-meta">
@@ -193,6 +226,8 @@ export default function PresenterView({ scenes, loadNotes, sceneControls }: { sc
           <span className={`pv-dot ${connected ? 'pv-ok' : 'pv-fail'}`} role="img" aria-label={connected ? 'live' : 'offline'}>●</span>
         </span>
       </header>
+
+      {showPreview && <SlidePreview scene={scene} step={pos.step} count={pos.stepCount} />}
 
       <section className="pv-fold" aria-label="Notes for this step">
         <div className="pv-label">Say now</div>

@@ -4,7 +4,7 @@
 | --- | --- |
 | `Deck` | Live stage, keyboard navigation, progress, timer and sync. Props: `scenes`. |
 | `PrintDeck` | Printable pages. Props: `scenes`, `options`. |
-| `PresenterView` (`/presenter`) | Speaker UI. Props: `scenes`, `loadNotes`, optional `sceneControls` map. |
+| `PresenterView` (`/presenter`) | Speaker UI. Props: `scenes`, `loadNotes`, optional `sceneControls` map and `showPreview` (renders the current scene in the desktop notes view; import `compose-slides/preview.css`). |
 | `PairView` (`/pair`) | Control-key entry. Props: `next` (`deck` or `presenter`), optional `verify` (default true; false for a local dev server). |
 | `SlideFrame` | Full-stage scene surface. Props: `children`, optional `className`, `style`. |
 | `StepSequence` | Reveal one item per step. Props: `step`, `items`, `renderItem`, optional `className`. |
