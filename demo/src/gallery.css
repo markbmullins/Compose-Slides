@@ -1,0 +1,85 @@
+.gallery-stage {
+  width: 1200px;
+  height: 675px;
+  background: #f8f7f4;
+  color: #26243d;
+  font-family: var(--font-sans);
+  padding: 38px 56px 30px;
+  box-sizing: border-box;
+  overflow: hidden;
+  --stage: #f8f7f4;
+  --surface: #fff;
+  --text: #26243d;
+  --text-2: #56546c;
+  --text-3: #8c8a9d;
+  --line: #dddbe3;
+  --accent: #7662e9;
+  --accent-soft: #ede9fd;
+  --accent-glow: #b8a7ff;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter Variable', sans-serif;
+}
+.gallery-top,
+.gallery-stage footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 600 12px var(--font-mono);
+  letter-spacing: 0.08em;
+  color: #78758e;
+}
+.gallery-top b {
+  color: #242139;
+  font-size: 16px;
+  letter-spacing: -0.04em;
+}
+.gallery-top b span {
+  color: #7662e9;
+}
+.gallery-stage main {
+  margin-top: 48px;
+}
+.gallery-eyebrow {
+  font: 600 12px var(--font-mono);
+  letter-spacing: 0.12em;
+  color: #7662e9;
+  margin-bottom: 14px;
+}
+.gallery-stage h1 {
+  font-size: 42px;
+  letter-spacing: -0.045em;
+  line-height: 1.13;
+  margin: 0;
+  font-weight: 620;
+}
+.gallery-example {
+  margin-top: 56px;
+  height: 370px;
+  display: flex;
+  align-items: center;
+}
+.gallery-stage footer {
+  margin-top: 20px;
+}
+.gallery-bars-pair {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+.gallery-bars .gallery-example {
+  margin-top: 35px;
+}
+.gallery-matrix .cs-matrix {
+  width: 100%;
+}
+.gallery-timeline .cs-timeline,
+.gallery-roadmap .cs-roadmap,
+.gallery-numbered .cs-numbered-list {
+  width: 100%;
+}
+.gallery-distribution .cs-distribution {
+  width: 100%;
+}
+.gallery-sequence .cs-sequence {
+  margin: 0 auto;
+}

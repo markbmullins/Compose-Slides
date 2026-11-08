@@ -14,7 +14,11 @@
 | `Badge`, `IconTile`, `QuoteCallout` | Small presentational surfaces for labels, icons, and emphasized statements. |
 | `DrawPath`, `DiagramNode` | Animated SVG path and positioned, revealed diagram node. |
 | `CountUp`, `StaggeredItem` | Animated numeric text and sequenced entrance for repeated items. |
-| `ComparisonBarChart` | Data-driven horizontal comparison with ticks, labels, values, notes, and colors. |
+| `ComparisonBarChart` | Data-driven horizontal or vertical comparison with ticks, labels, values, notes, and colors. |
+| `ProgressSplit`, `FlowDiagram` | Animated progress and node/edge story diagrams. |
+| `ComparisonMatrix`, `Timeline` | Column reveal and dated milestones. |
+| `DistributionFlow`, `Roadmap`, `NumberedList` | Weighted outcomes, expanding plan, and staggered summary. |
+| `SequenceStory` | Autoplay sequence from participant names and ordered calls. |
 | `SequenceDiagram` | Timed participant lanes and calls. Props: `time`, ordered `lanes`, ordered `calls`, optional `width` and `streamLabel`. |
 | `useTween` | Animate a numeric target with Motion; respects reduced motion. |
 | `readPrintOptions` | Parse `?print`, `?print=final`, and optional `&scenes=id,id`. |

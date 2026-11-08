@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 const base = process.env.DEMO_URL ?? 'http://127.0.0.1:5175';
-const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROMIUM_PATH || undefined });
+const browser = await chromium.launch({
+  headless: true,
+  executablePath: process.env.CHROMIUM_PATH || undefined,
+});
 try {
   const context = await browser.newContext({ reducedMotion: 'reduce' });
   const deck = await context.newPage();
@@ -22,6 +25,28 @@ try {
   await print.goto(`${base}/?print=final&scenes=title,close`);
   await print.locator('.print-page').first().waitFor();
   assert.equal(await print.locator('.print-page').count(), 2);
+  const gallery = await context.newPage();
+  const errors = [];
+  gallery.on('pageerror', (error) => errors.push(error.message));
+  for (const [id, selector] of [
+    ['progress', '.cs-progress-split'],
+    ['journey', '.cs-flow'],
+    ['bars', '.cs-comparison-chart'],
+    ['architecture', '.cs-flow'],
+    ['sequence', '.cs-sequence'],
+    ['matrix', '.cs-matrix'],
+    ['timeline', '.cs-timeline'],
+    ['distribution', '.cs-distribution'],
+    ['roadmap', '.cs-roadmap'],
+    ['numbered', '.cs-numbered-list'],
+  ]) {
+    await gallery.goto(`${base}/?gallery=${id}`);
+    await gallery.locator(selector).first().waitFor();
+    assert.equal(await gallery.locator('.gallery-stage').count(), 1, id);
+  }
+  assert.deepEqual(errors, []);
   await context.close();
-  console.log('PASS demo navigation, presenter sync and print selection');
-} finally { await browser.close(); }
+  console.log('PASS demo navigation, presenter sync, print selection and ten gallery routes');
+} finally {
+  await browser.close();
+}

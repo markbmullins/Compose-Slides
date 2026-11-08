@@ -60,7 +60,7 @@ function Journey({ step }: { step: number }) {
 
 ## Compare data
 
-`ComparisonBarChart` draws labeled horizontal bars, ticks, values, and optional notes. It accepts data and colors as props, so the chart does not know anything about your presentation's subject. `max` sets the scale; `formatValue` formats both ticks and values. Its logical dimensions default to 1600 × `(bars.length × 92 + 40)`, sized for the 1920 × 1080 stage.
+`ComparisonBarChart` draws labeled horizontal or vertical bars, ticks, values, and optional notes. It accepts data and colors as props, so the chart does not know anything about your presentation's subject. `max` sets the scale; `formatValue` formats both ticks and values. The horizontal layout defaults to 1600 × `(bars.length × 92 + 40)` on the 1920 × 1080 stage. Set `orientation="vertical"` for columns, and use `animation={{ duration, stagger }}` to tune pacing. `plotWidth` sizes the horizontal measure; `plotHeight` sizes vertical columns.
 
 ```tsx
 import { ComparisonBarChart } from 'compose-slides';
@@ -101,3 +101,21 @@ import { SequenceDiagram } from 'compose-slides';
 ```
 
 Use the [API reference](api.md) for contracts and the [demo](../demo/src/scenes.tsx) for a complete presentation. For a new deck, follow the [authoring guide](authoring.md) and the [agent skill](../.agents/skills/create-presentation/SKILL.md).
+
+## Slide-level patterns
+
+The [README motion gallery](../README.md#motion-gallery) shows each of these in a runnable neutral scene with an animated GIF. The components stay data-driven; pass your own content and design tokens.
+
+| Component | Required data | Useful options |
+| --- | --- | --- |
+| `ProgressSplit` | `total`, `used` | `labels`, `format`, `duration`, `show`, `accent` |
+| `FlowDiagram` | `nodes: {id,label,x?,y?}[]`, `edges: {from,to}[]` | `step`, `width`, `height`, `nodeWidth`, `stagger`; node `detail` and `tone`; edge `label`, `tone`, `dashed` |
+| `ComparisonBarChart` | `bars`, `max`, `ariaLabel` | `orientation`, `ticks`, `show`, `formatValue`, `animation`, sizes |
+| `SequenceStory` | `lanes: string[]`, `calls: {from,to,label}[]` | `interval`, `width`, `playing`, call `color` and `dashed` |
+| `ComparisonMatrix` | `columns`, `rows: {label,values}[]` | `revealColumn`, `show`, `stagger`, `accent` |
+| `Timeline` | `events: {date,title}[]` | `active`, `showSpans`, `formatSpan`, `stagger`, event `label`, `detail`, `color` |
+| `DistributionFlow` | `outcomes: {label,value}[]` | `totalLabel`, `format`, `duration`, `show`, outcome `color` |
+| `Roadmap` | `now`, `next`, `step` | `nextAt`, `headings`, `stagger`, item `detail` |
+| `NumberedList` | `items: {title,detail?}[]` | `start`, `show`, `stagger`, `formatNumber`, `accent` |
+
+Use ISO dates such as `2026-03` in `Timeline`; `label` controls the shorter visible text. `SequenceStory` plays on mount. For speaker-controlled timing, use `SequenceDiagram` and pass a time value derived from your scene. Motion respects reduced-motion preferences; the print renderer settles all Motion animations.

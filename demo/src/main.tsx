@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Deck, PrintDeck, controlKey, forceReducedMotion, loadProtectedNotes, readPrintOptions } from '../../src';
 import type { NotesMap } from '../../src';
 import { scenes } from './scenes';
+import { Gallery, galleryIds } from './gallery';
 import '../../src/styles/theme.css';
 import './theme.css';
 
@@ -12,6 +13,8 @@ const print = readPrintOptions();
 if (print) forceReducedMotion();
 const loadNotes = (): Promise<NotesMap> => controlKey() ? loadProtectedNotes() : import('./notes').then((m) => m.notes);
 function App() {
+  const gallery = new URLSearchParams(location.search).get('gallery');
+  if (gallery && galleryIds.includes(gallery as typeof galleryIds[number])) return <Gallery id={gallery as typeof galleryIds[number]} />;
   if (print) return <PrintDeck scenes={scenes} options={print} />;
   const params = new URLSearchParams(location.search);
   const presenter = params.has('presenter');

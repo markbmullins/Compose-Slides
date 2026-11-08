@@ -67,6 +67,154 @@ createRoot(document.getElementById('root')!).render(
 
 Add a `<div id="root"></div>` to your HTML entrypoint. Run your app and press **→** to reveal the second step. Open `/?print` to print all steps. Add scenes to the `scenes` array, then style them with your own CSS after the package styles. See the [getting started guide](docs/getting-started.md) for presenter notes and a fuller setup, the [authoring guide](docs/authoring.md) for composition patterns, and the [API reference](docs/api.md) for the public exports.
 
+## Motion gallery
+
+These ten examples use neutral content and the same components as the [runnable gallery](demo/src/gallery.tsx). Each GIF was recorded from that demo. Copy a component into a scene, pass your own data, and use `step` when the reveal should follow the audience's next keypress. Import the components from `compose-slides`.
+
+| [Progress](#progress-split) | [Journey](#drawn-journey) | [Bar charts](#bar-charts) | [Architecture](#system-flow) | [Sequence](#sequence-story) |
+| --- | --- | --- | --- | --- |
+| [Matrix](#comparison-matrix) | [Timeline](#timeline) | [Distribution](#distribution-flow) | [Roadmap](#roadmap) | [Numbered list](#numbered-list) |
+
+### Progress split
+
+A total fills, then separates into completed and remaining work. Set the labels, number formatter, accent, and duration.
+
+![Animated progress split](docs/images/motion/progress.gif)
+
+```tsx
+<ProgressSplit total={100} used={64} format={n => `${n}%`}
+  labels={{ total: 'planned', used: 'complete', remaining: 'to go' }}
+  accent="#7662e9" duration={2.4} />
+```
+
+### Drawn journey
+
+Nodes and connecting paths reveal in order. Nodes are positioned automatically unless you provide `x` and `y`; `step` lets slide navigation control the drawing.
+
+![Animated three-node journey](docs/images/motion/journey.gif)
+
+```tsx
+<FlowDiagram step={step} width={980} height={240}
+  nodes={[{ id: 'a', label: 'Discover' },
+          { id: 'b', label: 'Design' },
+          { id: 'c', label: 'Deliver' }]}
+  edges={[{ from: 'a', to: 'b' }, { from: 'b', to: 'c', label: 'decision' }]} />
+```
+
+### Bar charts
+
+`ComparisonBarChart` supports horizontal and vertical layouts with the same data. Set colors per bar, ticks, number formatting, and animation pacing.
+
+![Animated horizontal and vertical bar charts](docs/images/motion/bars.gif)
+
+```tsx
+const bars = [{ id: 'a', label: 'Draft', value: 38 },
+              { id: 'b', label: 'Review', value: 62 },
+              { id: 'c', label: 'Ready', value: 84 }];
+<ComparisonBarChart bars={bars} max={100} ticks={[0, 50, 100]}
+  orientation="vertical" formatValue={n => `${n}%`}
+  ariaLabel="Progress by stage" animation={{ duration: 1, stagger: 0.15 }} />
+```
+
+### System flow
+
+Use the same diagram API for branching architecture. Nodes can have details and tones; edges can have labels, tones, and dashed strokes.
+
+![Animated branching system flow](docs/images/motion/architecture.gif)
+
+```tsx
+<FlowDiagram step={step} width={1050} height={300}
+  nodes={[{ id: 'input', label: 'Input', x: 100, y: 150 },
+          { id: 'router', label: 'Router', x: 410, y: 150 },
+          { id: 'store', label: 'Store', x: 740, y: 70 }]}
+  edges={[{ from: 'input', to: 'router' },
+          { from: 'router', to: 'store', label: 'write' }]} />
+```
+
+### Sequence story
+
+The high-level wrapper lays out participants and plays the calls. Use `SequenceDiagram` when you need direct control over time, lane positions, self-calls, or streams.
+
+![Animated sequence diagram](docs/images/motion/sequence.gif)
+
+```tsx
+<SequenceStory lanes={['Reader', 'App', 'Service']} interval={1.2}
+  calls={[{ from: 'Reader', to: 'App', label: 'open report' },
+          { from: 'App', to: 'Service', label: 'fetch summary' },
+          { from: 'Service', to: 'App', label: 'return data' }]} />
+```
+
+### Comparison matrix
+
+Reveal one column cell by cell while the other remains visible.
+
+![Animated comparison matrix](docs/images/motion/matrix.gif)
+
+```tsx
+<ComparisonMatrix columns={['Current', 'Proposed']} revealColumn={1}
+  rows={[{ label: 'Setup', values: ['Manual', 'Guided'] },
+         { label: 'Reporting', values: ['Weekly', 'Live'] }]}
+  show={step >= 2} stagger={0.22} />
+```
+
+### Timeline
+
+Events are sorted by date, then drawn in order. `active` controls how far the reveal has reached.
+
+![Animated milestone timeline](docs/images/motion/timeline.gif)
+
+```tsx
+<Timeline active={step} events={[
+  { date: '2026-01', label: 'JAN', title: 'Explore', detail: 'Find the signal' },
+  { date: '2026-03', label: 'MAR', title: 'Prototype', detail: 'Make it tangible' },
+  { date: '2026-06', label: 'JUN', title: 'Pilot', detail: 'Learn with a team' },
+]} />
+```
+
+### Distribution flow
+
+An animated distribution turns one total into weighted outcomes. Set the values, colors, labels, and timing.
+
+![Animated distribution chart](docs/images/motion/distribution.gif)
+
+```tsx
+<DistributionFlow totalLabel="Items" outcomes={[
+  { label: 'Completed', value: 72, color: '#7662e9' },
+  { label: 'In review', value: 19, color: '#55b9a8' },
+  { label: 'Deferred', value: 9, color: '#e5a864' },
+]} />
+```
+
+### Roadmap
+
+The current plan compresses when the next phase appears. `nextAt` sets the transition step; each later step reveals another card.
+
+![Animated roadmap layout](docs/images/motion/roadmap.gif)
+
+```tsx
+<Roadmap step={step} nextAt={3}
+  now={[{ title: 'Clarify the goal' }, { title: 'Simplify the path' },
+        { title: 'Test with users' }]}
+  next={[{ title: 'Pilot', detail: 'Start with one team' },
+         { title: 'Measure', detail: 'Review the result' }]} />
+```
+
+### Numbered list
+
+A staggered final summary with configurable numbering, accent, and reveal count.
+
+![Animated numbered list](docs/images/motion/numbered.gif)
+
+```tsx
+<NumberedList show={step + 1} stagger={0.18} items={[
+  { title: 'Start with the question', detail: 'Make the stakes clear.' },
+  { title: 'Let the evidence move', detail: 'Reveal only what matters.' },
+  { title: 'End with a decision', detail: 'Give the audience a next step.' },
+]} />
+```
+
+See the [component guide](docs/components.md) for the full prop surface and lower-level building blocks.
+
 ## Build a presentation with an AI agent
 
 This repository includes an [agent guide](AGENTS.md) and two task-specific skills. They are also included in the npm package, but agents do not automatically load skills from installed dependencies. Point your agent to these files in a checkout:
@@ -92,11 +240,11 @@ When the deck is ready to host, ask the agent to follow the [deployment skill](.
 
 ## Components
 
-The library includes more than the deck shell. [The component guide](docs/components.md) shows how to combine headings, cards, badges, icon tiles, callouts, diagram nodes and paths, animated counts, staggered items, a data-driven comparison chart, and a timed sequence diagram. These are the same visual building blocks used by the presentation this framework was extracted from. Content is passed as props; the library keeps no client-specific copy or data.
+The library includes more than the deck shell. The [motion gallery](#motion-gallery) shows ten slide-level patterns with code and GIFs. [The component guide](docs/components.md) shows how to combine headings, cards, badges, icon tiles, callouts, diagram nodes and paths, animated counts, staggered items, a data-driven comparison chart, and a timed sequence diagram. These are the same visual building blocks used by the presentation this framework was extracted from. Content is passed as props; the library keeps no client-specific copy or data.
 
 | Build a slide | Guide attention | Show data |
 | --- | --- | --- |
-| `SlideFrame`, `SlideHeading`, `SlideCard`, `MotionCard`, `IconTile`, `Badge`, `QuoteCallout` | `Reveal`, `StepSequence`, `StaggeredItem`, `DrawPath`, `DiagramNode` | `CountUp`, `ComparisonBarChart`, `SequenceDiagram` |
+| `SlideFrame`, `SlideHeading`, `SlideCard`, `MotionCard`, `IconTile`, `Badge`, `QuoteCallout` | `Reveal`, `StepSequence`, `StaggeredItem`, `DrawPath`, `DiagramNode`, `FlowDiagram`, `ComparisonMatrix`, `Timeline`, `Roadmap`, `NumberedList` | `CountUp`, `ProgressSplit`, `ComparisonBarChart`, `SequenceStory`, `SequenceDiagram`, `DistributionFlow` |
 
 ## Live sync and WebSockets
 
@@ -125,4 +273,4 @@ npm run lint
 npm run test:smoke   # while the demo dev server is running
 ```
 
-Run `npx playwright install chromium` once, then `node scripts/capture-readme.mjs` while the demo server is running to refresh the README screenshots. You can set `CHROMIUM_PATH` to an existing Chrome or Chromium binary instead. Contributions are welcome; keep the runtime content-neutral and add a focused demo example for new public APIs. Maintainers can follow the [npm publishing guide](docs/publishing.md). Licensed under [MIT](LICENSE).
+Run `npx playwright install chromium` once, then `node scripts/capture-readme.mjs` and `node scripts/capture-gallery.mjs` while the demo server is running to refresh the README screenshots and GIFs. You can set `CHROMIUM_PATH` to an existing Chrome or Chromium binary instead. Contributions are welcome; keep the runtime content-neutral and add a focused demo example for new public APIs. Maintainers can follow the [npm publishing guide](docs/publishing.md). Licensed under [MIT](LICENSE).

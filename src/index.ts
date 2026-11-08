@@ -28,3 +28,7 @@ export { ComparisonBarChart } from './components/ComparisonBarChart';
 export type { ComparisonBar, ComparisonBarChartProps } from './components/ComparisonBarChart';
 export { SequenceDiagram } from './components/SequenceDiagram';
 export type { SequenceLane, SequenceCall, SequenceDiagramProps } from './components/SequenceDiagram';
+export { ProgressSplit, FlowDiagram, ComparisonMatrix, Timeline, DistributionFlow, Roadmap, NumberedList } from './components/HighLevel';
+export type { ProgressSplitProps, FlowNode, FlowEdge, FlowDiagramProps, ComparisonMatrixProps, TimelineEvent, TimelineProps, DistributionFlowProps, RoadmapItem, RoadmapProps, NumberedListProps } from './components/HighLevel';
+export { SequenceStory } from './components/HighLevel';
+export type { SequenceStoryProps } from './components/HighLevel';

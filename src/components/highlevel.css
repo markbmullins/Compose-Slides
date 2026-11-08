@@ -1,0 +1,291 @@
+.cs-progress-split {
+  width: 100%;
+  max-width: 1040px;
+  color: var(--text);
+}
+.cs-progress-total {
+  font: 600 clamp(24px, 3vw, 44px)/1.2 var(--font-mono);
+  color: var(--cs-accent);
+  margin-bottom: 20px;
+}
+.cs-progress-total span {
+  font: 400 0.55em var(--font-sans);
+  color: var(--text-2);
+}
+.cs-progress-track {
+  height: 48px;
+  border: 2px solid var(--cs-accent);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  background: color-mix(in srgb, var(--cs-accent) 7%, transparent);
+}
+.cs-progress-used {
+  height: 100%;
+  background: var(--cs-accent);
+}
+.cs-progress-remaining {
+  position: absolute;
+  inset-block: 0;
+  right: 0;
+  background: repeating-linear-gradient(
+    120deg,
+    transparent,
+    transparent 9px,
+    color-mix(in srgb, var(--cs-accent) 28%, transparent) 9px,
+    color-mix(in srgb, var(--cs-accent) 28%, transparent) 11px
+  );
+}
+.cs-progress-legend {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+  color: var(--text-2);
+  font: 500 20px var(--font-mono);
+}
+.cs-progress-legend span:first-child {
+  color: var(--cs-accent);
+}
+.cs-flow {
+  width: 100%;
+}
+.cs-flow svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.cs-flow-node {
+  fill: var(--surface);
+  stroke: var(--node-tone);
+  stroke-width: 1.5;
+}
+.cs-flow-label {
+  fill: var(--text);
+  font: 600 16px var(--font-sans);
+}
+.cs-flow-detail,
+.cs-flow-edge-label {
+  fill: var(--text-3);
+  font: 12px var(--font-mono);
+}
+.cs-matrix {
+  display: grid;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.cs-matrix-row {
+  display: contents;
+}
+.cs-matrix-row > * {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text-2);
+  font-size: 18px;
+}
+.cs-matrix-row > strong {
+  color: var(--text);
+  font-size: 20px;
+}
+.cs-matrix-row > span.is-accent {
+  color: var(--cs-accent);
+  background: color-mix(in srgb, var(--cs-accent) 8%, var(--surface));
+}
+.cs-timeline {
+  position: relative;
+  padding: 40px 0 20px;
+}
+.cs-timeline-axis {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 47px;
+  height: 2px;
+  background: var(--line);
+}
+.cs-timeline-line {
+  width: 100%;
+  height: 2px;
+  background: var(--cs-accent);
+  transform-origin: left;
+}
+.cs-timeline-events {
+  display: flex;
+}
+.cs-timeline-event {
+  flex: 1;
+  position: relative;
+  padding: 25px 20px 0 0;
+  min-width: 0;
+}
+.cs-timeline-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 0 0 0 6px var(--stage);
+}
+.cs-timeline-event time {
+  display: block;
+  color: var(--cs-accent);
+  font: 13px var(--font-mono);
+  margin-bottom: 8px;
+}
+.cs-timeline-event strong {
+  display: block;
+  font-size: 22px;
+  color: var(--text);
+}
+.cs-timeline-event p {
+  font-size: 15px;
+  color: var(--text-2);
+  line-height: 1.4;
+}
+.cs-timeline-event small {
+  color: var(--text-3);
+  font: 12px var(--font-mono);
+}
+.cs-distribution {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-height: 290px;
+}
+.cs-distribution-source {
+  min-width: 120px;
+  border: 1px solid var(--cs-accent);
+  background: var(--surface);
+  padding: 22px;
+  border-radius: 12px;
+}
+.cs-distribution-source strong {
+  display: block;
+  color: var(--cs-accent);
+  font: 600 32px var(--font-mono);
+}
+.cs-distribution-source span {
+  font-size: 14px;
+  color: var(--text-2);
+}
+.cs-distribution-branches {
+  width: 90px;
+  height: 200px;
+  flex: none;
+  overflow: visible;
+}
+.cs-distribution-outcomes {
+  flex: 1;
+  display: grid;
+  gap: 18px;
+}
+.cs-distribution-row {
+  display: grid;
+  grid-template-columns: minmax(70px, 1fr) 140px 70px;
+  gap: 16px;
+  align-items: center;
+  color: var(--text-2);
+  font-size: 17px;
+}
+.cs-distribution-bar {
+  height: 26px;
+  border-radius: 5px;
+  min-width: 2px;
+}
+.cs-distribution-row strong {
+  color: var(--text);
+  font: 600 18px var(--font-mono);
+}
+.cs-roadmap {
+  display: flex;
+  gap: 28px;
+  width: 100%;
+  min-height: 350px;
+}
+.cs-roadmap-now,
+.cs-roadmap-next {
+  min-width: 0;
+}
+.cs-roadmap-now {
+  flex: 0 0 100%;
+}
+.cs-roadmap-next {
+  flex: 1;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.cs-roadmap h3 {
+  margin: 0 0 22px;
+  color: var(--cs-accent);
+  font: 600 15px var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.cs-roadmap-item {
+  display: flex;
+  gap: 20px;
+  padding: 15px 0;
+  border-top: 1px solid var(--line);
+  color: var(--text);
+}
+.cs-roadmap-mark {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cs-accent);
+  margin-top: 9px;
+  flex: none;
+}
+.cs-roadmap-item strong {
+  font-size: 24px;
+  font-weight: 500;
+}
+.cs-roadmap p {
+  margin: 6px 0 0;
+  color: var(--text-2);
+  font-size: 15px;
+}
+.cs-roadmap-next article {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.cs-roadmap-next article small {
+  display: block;
+  color: var(--cs-accent);
+  font: 13px var(--font-mono);
+  margin-bottom: 6px;
+}
+.cs-roadmap-next article strong {
+  font-size: 20px;
+}
+.cs-numbered-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cs-numbered-list li {
+  display: flex;
+  gap: 26px;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+.cs-numbered-list li > span {
+  color: var(--cs-accent);
+  font: 600 20px var(--font-mono);
+}
+.cs-numbered-list strong {
+  color: var(--text);
+  font-size: 26px;
+  font-weight: 500;
+}
+.cs-numbered-list p {
+  color: var(--text-2);
+  font-size: 17px;
+  margin: 7px 0 0;
+}
