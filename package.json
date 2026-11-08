@@ -1,0 +1,96 @@
+{
+  "name": "compose-slides",
+  "version": "0.1.0",
+  "description": "A React presentation runtime with motion, presenter notes, print export, and live sync",
+  "type": "module",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "docs",
+    "AGENTS.md",
+    ".agents"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./presenter": {
+      "types": "./dist/presenter.d.ts",
+      "import": "./dist/presenter.js"
+    },
+    "./pair": {
+      "types": "./dist/pair.d.ts",
+      "import": "./dist/pair.js"
+    },
+    "./theme.css": {
+      "types": "./dist/css.d.ts",
+      "default": "./dist/theme.css"
+    },
+    "./styles.css": {
+      "types": "./dist/css.d.ts",
+      "default": "./dist/styles.css"
+    },
+    "./cloudflare": {
+      "types": "./dist/cloudflare/relay.d.ts",
+      "import": "./dist/cloudflare/relay.js"
+    }
+  },
+  "scripts": {
+    "build": "vite build && tsc -p tsconfig.build.json && cp src/styles/theme.css dist/theme.css && cp src/styles/css.d.ts dist/css.d.ts",
+    "dev": "vite --config demo/vite.config.ts",
+    "demo:build": "vite build --config demo/vite.config.ts",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit && tsc -p tsconfig.demo.json",
+    "lint": "oxlint src demo",
+    "test:smoke": "node scripts/smoke.mjs",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run typecheck && npm run lint && npm run demo:build"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "motion": "^14.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261106.1",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "motion": "^14.9.0",
+    "oxlint": "^1.89.0",
+    "playwright": "^1.64.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "~7.0.2",
+    "vite": "^8.3.5",
+    "wrangler": "^4.158.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markbmullins/Compose-Slides.git"
+  },
+  "homepage": "https://github.com/markbmullins/Compose-Slides#readme",
+  "bugs": {
+    "url": "https://github.com/markbmullins/Compose-Slides/issues"
+  },
+  "keywords": [
+    "presentations",
+    "slides",
+    "react",
+    "components",
+    "presenter-notes",
+    "websocket"
+  ],
+  "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  }
+}

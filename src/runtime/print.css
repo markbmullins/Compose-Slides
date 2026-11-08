@@ -1,0 +1,59 @@
+/* Print mode: one 1920x1080 page per stage, no animation, backgrounds kept. */
+@page { size: 1920px 1080px; margin: 0; }
+
+html:has(.print-root), html:has(.print-root) body, html:has(.print-root) #root {
+  height: auto;
+  overflow: visible;
+}
+
+.print-root {
+  counter-reset: slide;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 32px 0;
+  background: var(--bg);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.print-root .print-page {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  flex: none;
+  break-after: page;
+  counter-increment: slide;
+}
+
+/* Frame + page number so consecutive slides read as separate pages. */
+.print-root .print-page::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 50; pointer-events: none;
+  border: 3px solid var(--line-strong);
+}
+.print-root .print-page::after {
+  content: counter(slide);
+  position: absolute; left: 40px; bottom: 28px; z-index: 50; pointer-events: none;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: var(--fs-micro); letter-spacing: 0.14em;
+  color: var(--text-3);
+}
+
+/* Freeze CSS loops (shimmers, flowing dots) and make CSS transitions instant. */
+.print-root *, .print-root *::before, .print-root *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.print-variant-tag {
+  position: absolute; right: 40px; bottom: 28px;
+  font-size: var(--fs-micro); letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-3);
+}
+
+@media print {
+  .print-root { gap: 0; padding: 0; }
+}

@@ -1,0 +1,12 @@
+export { default as Deck } from './runtime/Deck';
+export { default as PrintDeck } from './runtime/PrintDeck';
+export { default as Reveal } from './runtime/Reveal';
+export { useTween } from './runtime/useTween';
+export { controlKey, saveControlKey, configureSyncChannel } from './runtime/sync';
+export { forceReducedMotion, readPrintOptions } from './runtime/print';
+export type { SceneDef, SceneProps } from './runtime/types';
+export type { PrintOptions } from './runtime/print';
+export type { Cue, SceneNotes, NotesMap } from './runtime/notes';
+export { loadProtectedNotes } from './runtime/notesLoader';
+export { SlideFrame } from './components/SlideFrame';
+export { StepSequence } from './components/StepSequence';

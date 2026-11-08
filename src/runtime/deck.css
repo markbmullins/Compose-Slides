@@ -1,0 +1,35 @@
+/* Local token: theme.css is not owned by the deck shell. */
+:root { --overlay-style: color-mix(in srgb, var(--surface) 82%, transparent); }
+
+.deck-root { position: fixed; inset: 0; background: var(--bg); overflow: hidden; }
+.stage {
+  position: absolute; left: 50%; top: 50%;
+  background: var(--stage);
+  overflow: hidden;
+  transform-origin: center center;
+  color: var(--text);
+}
+.scene-layer { position: absolute; inset: 0; }
+
+.progress {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
+  display: flex; gap: 4px; padding: 0 160px 0; z-index: 5;
+}
+.progress-seg { flex-basis: 0; background: var(--line); opacity: 0.6; overflow: hidden; }
+.progress-fill {
+  height: 100%; background: var(--accent); transform-origin: left center;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.presenter {
+  position: absolute; top: 32px; right: 32px; width: 300px; z-index: 10;
+  padding: 18px 20px; border-radius: var(--radius);
+  background: var(--overlay-style); backdrop-filter: blur(8px);
+  border: 1px solid var(--line);
+  font-size: var(--fs-micro); color: var(--text);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.presenter-time { font-size: 48px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
+.presenter-row { display: flex; justify-content: space-between; gap: 16px; }
+.presenter-dim { color: var(--text-2); }
+.presenter-hint { color: var(--text-3); font-size: var(--fs-micro); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }

@@ -1,0 +1,9 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "fieldnotes-demo",
+  "main": "worker.ts",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./dist", "run_worker_first": ["/ws", "/api/*"] },
+  "durable_objects": { "bindings": [{ "name": "ROOM", "class_name": "DeckRoom" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["DeckRoom"] }]
+}

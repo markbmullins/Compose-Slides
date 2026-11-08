@@ -1,0 +1,24 @@
+# API reference
+
+| Export | Purpose |
+| --- | --- |
+| `Deck` | Live stage, keyboard navigation, progress, timer and sync. Props: `scenes`. |
+| `PrintDeck` | Printable pages. Props: `scenes`, `options`. |
+| `PresenterView` (`/presenter`) | Speaker UI. Props: `scenes`, `loadNotes`, optional `sceneControls` map. |
+| `PairView` (`/pair`) | Control-key entry. Props: `next` (`deck` or `presenter`), optional `verify` (default true; false for a local dev server). |
+| `SlideFrame` | Full-stage scene surface. Props: `children`, optional `className`, `style`. |
+| `StepSequence` | Reveal one item per step. Props: `step`, `items`, `renderItem`, optional `className`. |
+| `Reveal` | Animate a child as `show` changes. Optional `delay`, `className`, `style`. |
+| `useTween` | Animate a numeric target with Motion; respects reduced motion. |
+| `readPrintOptions` | Parse `?print`, `?print=final`, and optional `&scenes=id,id`. |
+| `forceReducedMotion` | Call before React mounts when print options exist. |
+| `controlKey`, `saveControlKey` | Read and store a pairing key. |
+| `configureSyncChannel` | Set a unique local BroadcastChannel name per presentation. Call before mounting. |
+| `loadProtectedNotes` | Fetch protected notes in production; select a dynamic import in dev. |
+| `createRelay`, `DeckRoom` (`/cloudflare`) | Optional Cloudflare Worker and Durable Object relay. |
+
+`SceneDef` requires `id`, `label`, `window: [startMinutes, endMinutes]`, `steps`, and `Component`. Optional `printVariants` is an array of `{variant, label}`. `SceneProps` contains `step`, `setStepCount`, `goToStep`, `variant?`, and `print?`.
+
+`NotesMap` maps scene IDs to `SceneNotes`. Each entry has a `goal` and `cues: {phase, say, do?}[]`. Optional fields are `principle`, `qa`, `timing`, and `reminders`.
+
+Import the default token sheet from `compose-slides/theme.css` and component CSS from `compose-slides/styles.css`. Override tokens in your own stylesheet loaded afterward.

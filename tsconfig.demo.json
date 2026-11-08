@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "ES2023", "lib": ["ES2023", "DOM"], "module": "ESNext",
+    "moduleResolution": "Bundler", "jsx": "react-jsx", "strict": true,
+    "noEmit": true, "skipLibCheck": true, "verbatimModuleSyntax": true,
+    "noUnusedLocals": true, "noUnusedParameters": true, "types": ["vite/client", "@cloudflare/workers-types"]
+  },
+  "include": ["demo", "src"]
+}

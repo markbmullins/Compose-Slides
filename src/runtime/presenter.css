@@ -1,0 +1,190 @@
+/* Presenter window (/?presenter). Mobile-first; its own scroll container because
+   theme.css locks html/body/#root to overflow:hidden for the 1920x1080 stage. */
+:root { --pv-top: 44px; --pv-nav: 68px; }
+
+.pv {
+  position: fixed; inset: 0;
+  overflow-y: auto; overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y;
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  background: var(--bg); color: var(--text); font-family: var(--font-sans);
+}
+.pv-wait {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; padding: 24px; text-align: center; color: var(--text-2);
+}
+.pv-wait h1 { color: var(--text); font-size: 26px; margin: 0; }
+.pv-wait p { max-width: 36ch; line-height: 1.5; margin: 0; }
+.pv-wait code { font-family: var(--font-mono); color: var(--accent); }
+
+/* One thin line: where you are, the clock, whether it's live. */
+.pv-top {
+  position: sticky; top: 0; z-index: 3; height: var(--pv-top);
+  padding: 0 max(14px, env(safe-area-inset-left)) 0 max(14px, env(safe-area-inset-right));
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  font-size: 14px; white-space: nowrap;
+}
+.pv-where { color: var(--accent); font-weight: 600; letter-spacing: 0.02em; overflow: hidden; text-overflow: ellipsis; }
+.pv-where b { color: var(--text-2); font-weight: 500; margin-left: 4px; }
+.pv-meta { display: flex; align-items: center; gap: 10px; flex: none; }
+.pv-timer-btn {
+  display: flex; align-items: center; gap: 10px; font: inherit; color: inherit; cursor: pointer;
+  background: transparent; border: 1px solid transparent; border-radius: 10px; padding: 6px 10px; margin: 0 -6px;
+  min-height: 40px; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.pv-timer-btn:hover, .pv-timer-btn:active { background: var(--surface-2); border-color: var(--line-strong); }
+.pv-timer-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.pv-time { font-family: var(--font-mono); font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.pv-status { font-size: 13px; font-weight: 600; }
+.pv-dot { font-size: 11px; }
+.pv-dim { color: var(--text-3); } .pv-ok { color: var(--success); } .pv-warn { color: var(--warning); } .pv-fail { color: var(--danger); }
+
+/* Notes sit at a comfortable size (see FitText) with the secondary content flowing straight
+   underneath, so whatever fits above the Back/Next bar is visible and the rest scrolls. */
+.pv-fold {
+  padding: 12px max(16px, env(safe-area-inset-left)) 6px max(16px, env(safe-area-inset-right));
+  box-sizing: border-box; max-width: 980px; margin: 0 auto;
+}
+.pv-fit {
+  max-height: calc(100vh - var(--pv-top) - var(--pv-nav) - env(safe-area-inset-bottom) - 24px);
+  max-height: calc(100dvh - var(--pv-top) - var(--pv-nav) - env(safe-area-inset-bottom) - 24px);
+  overflow-y: auto; line-height: 1.36;
+}
+.pv-fit ul { margin: 0; padding-left: 1.05em; display: flex; flex-direction: column; gap: 0.5em; }
+.pv-fit li::marker { color: var(--accent); }
+.pv-empty { color: var(--text-3); margin: 0; font-size: 18px; }
+
+/* Secondary content, compact. */
+.pv-more {
+  max-width: 980px; margin: 0 auto; box-sizing: border-box;
+  padding: 6px max(16px, env(safe-area-inset-left)) calc(var(--pv-nav) + 24px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-right));
+  display: flex; flex-direction: column; gap: 10px;
+}
+.pv-goal, .pv-principle, .pv-timing { margin: 0; font-size: 14px; line-height: 1.4; }
+.pv-principle { color: var(--warning); padding: 8px 12px; border-left: 3px solid var(--warning); background: var(--warning-soft); border-radius: 0 8px 8px 0; }
+.pv-goal { color: var(--text-2); }
+.pv-timing { color: var(--text-3); font-size: 13px; }
+.pv-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.pv-card h2 { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); font-weight: 600; }
+.pv-card ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 1.42; color: var(--text-2); }
+.pv-card dl { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.pv-card dt { font-size: 14px; font-weight: 600; color: var(--text); }
+.pv-card dd { margin: 2px 0 0; font-size: 14px; line-height: 1.45; color: var(--text-2); }
+.pv-tools { display: flex; gap: 10px; }
+.pv-tools button, .pv-nav button {
+  font: inherit; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  background: var(--surface-2); color: var(--text); border: 1px solid var(--line-strong); border-radius: 12px;
+}
+.pv-tools button { font-size: 14px; padding: 10px 16px; min-height: 44px; }
+
+/* Big thumb targets pinned to the bottom. */
+.pv-nav {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 3; height: var(--pv-nav);
+  box-sizing: content-box; padding: 0 max(12px, env(safe-area-inset-left)) env(safe-area-inset-bottom);
+  display: grid; grid-template-columns: 1fr 2fr; gap: 10px; align-items: center;
+  background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(8px);
+  border-top: 1px solid var(--line);
+}
+.pv-nav button { height: 52px; font-size: 19px; font-weight: 600; }
+.pv-nav .pv-next { background: var(--accent); color: #0a0d14; border-color: transparent; }
+.pv-nav button:active, .pv-tools button:active { filter: brightness(1.15); transform: scale(0.98); }
+.pv-nav button:focus-visible, .pv-tools button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (min-width: 900px) {
+  :root { --pv-top: 52px; --pv-nav: 76px; }
+  .pv-top { padding: 0 32px; font-size: 16px; }
+  .pv-time { font-size: 22px; }
+  .pv-nav { padding: 0 max(32px, calc((100vw - 980px) / 2)); }
+  .pv-goal, .pv-principle, .pv-card ul, .pv-card dt, .pv-card dd { font-size: 16px; }
+}
+
+.pv-pair { display: flex; flex-direction: column; gap: 14px; width: min(420px, 100%); text-align: left; }
+.pv-pair h1 { margin: 0; }
+.pv-pair p { margin: 0; color: var(--text-2); }
+.pv-pair input {
+  font: inherit; font-size: 16px; padding: 12px 14px; border-radius: 10px;
+  background: var(--surface); color: var(--text); border: 1px solid var(--line-strong);
+}
+.pv-pair input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pv-pair button {
+  font: inherit; font-size: 16px; padding: 12px 18px; border-radius: 10px; cursor: pointer; min-height: 44px;
+  background: var(--accent); color: #0a0d14; border: 0; font-weight: 600;
+}
+.pv-pair button:disabled { opacity: 0.5; cursor: default; }
+.pv-pair-err { color: var(--danger); font-size: 15px; }
+
+/* Timer dialog: bottom sheet on phones, centred card on larger screens. */
+.pv-modal-back {
+  position: fixed; inset: 0; z-index: 10; display: flex; align-items: flex-end; justify-content: center;
+  background: rgba(4, 6, 10, 0.62); backdrop-filter: blur(3px);
+}
+.pv-modal {
+  width: 100%; max-width: 440px; max-height: 92dvh; overflow-y: auto; box-sizing: border-box;
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: 20px 20px 0 0;
+  padding: 16px 18px calc(18px + env(safe-area-inset-bottom)); box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+  animation: pv-sheet 0.22s var(--ease-out);
+}
+@keyframes pv-sheet { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .pv-modal { animation: none; } }
+@media (min-width: 600px) {
+  .pv-modal-back { align-items: center; }
+  .pv-modal { border-radius: 20px; padding-bottom: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55); }
+}
+.pv-m-head { display: flex; align-items: center; justify-content: space-between; }
+.pv-m-head h2 { margin: 0; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); font-weight: 600; }
+.pv-m-x { font: inherit; font-size: 18px; width: 44px; height: 44px; margin: -8px -10px -8px 0; background: none; border: 0; color: var(--text-2); cursor: pointer; border-radius: 10px; }
+.pv-m-x:hover { background: var(--surface-2); }
+.pv-m-clock { margin-top: 2px; text-align: center; font-family: var(--font-mono); font-size: 64px; font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.pv-m-state { text-align: center; font-size: 14px; font-weight: 600; margin: 4px 0 14px; }
+.pv-m-plan { font-weight: 500; color: var(--text-3); }
+.pv-m-row { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; }
+.pv-modal button { font: inherit; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.pv-m-row button, .pv-m-nudges button, .pv-m-set button, .pv-m-plan-btn {
+  min-height: 48px; border-radius: 12px; font-size: 16px; font-weight: 600; color: var(--text);
+  background: var(--surface-2); border: 1px solid var(--line-strong);
+}
+.pv-modal button:active:not(:disabled) { filter: brightness(1.15); transform: scale(0.98); }
+.pv-modal button:disabled { opacity: 0.4; cursor: default; }
+.pv-modal button:focus-visible, .pv-m-set input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pv-m-row .pv-m-primary { background: var(--accent); color: #0a0d14; border-color: transparent; }
+.pv-m-danger { color: var(--danger) !important; }
+.pv-m-label { margin: 16px 0 8px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); font-weight: 600; }
+.pv-m-nudges { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.pv-m-nudges button { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.pv-m-set { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; align-items: center; }
+.pv-m-set label { display: flex; align-items: center; gap: 8px; color: var(--text-3); font-size: 14px; }
+.pv-m-set input {
+  width: 100%; min-width: 0; box-sizing: border-box; min-height: 48px; text-align: center;
+  font: inherit; font-family: var(--font-mono); font-size: 20px; color: var(--text);
+  background: var(--bg); border: 1px solid var(--line-strong); border-radius: 12px;
+}
+.pv-m-set button { padding: 0 20px; }
+.pv-m-plan-btn { width: 100%; margin-top: 12px; font-size: 14px; font-weight: 500; color: var(--text-2); }
+
+.pv-m-legacy { margin: 10px 0 0; padding: 10px 12px; border-radius: 10px; font-size: 14px; line-height: 1.4; color: var(--warning); background: var(--warning-soft); border: 1px solid var(--warning); }
+
+/* Narration that follows an animation (live replay). */
+.pv-cue-phase { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.62em; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; color: var(--accent); margin-bottom: 0.5em; }
+.pv-cue-phase span { font-family: var(--font-mono); font-weight: 500; color: var(--text-3); letter-spacing: 0; }
+.pv-cue-say { margin: 0; font-size: 1em; line-height: 1.36; }
+.pv-cue-next { margin: 1em 0 0; padding-top: 0.8em; border-top: 1px solid var(--line); font-size: 0.66em; line-height: 1.4; color: var(--text-3); }
+.pv-cue-next b { color: var(--text-2); font-weight: 600; }
+.pv-script { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 1.45; color: var(--text-3); }
+.pv-script li.is-now { color: var(--text); }
+.pv-script b { color: var(--text-2); }
+.pv-script li.is-now b { color: var(--accent); }
+
+.pv-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; color: var(--text-3); margin: 0 0 8px; }
+.pv-fold { display: block; }
+.pv-tools { flex-wrap: wrap; }
+
+/* Something to do, not say: kept small and visually apart from the spoken line. */
+.pv-cue-do { margin: 0.7em 0 0; font-size: 0.55em; line-height: 1.4; color: var(--text-3); font-style: italic; }
+.pv-cue-do::before { content: '↳ '; font-style: normal; }
+.pv-upnext { margin: 0; font-size: 14px; line-height: 1.45; color: var(--text-2); }
+.pv-upnext b { color: var(--text); }
+@media (min-width: 700px) { .pv-upnext { font-size: 16px; } }
+
+.pv-card dd { white-space: pre-line; }

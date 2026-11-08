@@ -1,0 +1,64 @@
+/* Design tokens. Every component uses these variables; no raw hex in components. */
+@import '@fontsource-variable/inter';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/600.css';
+
+:root {
+  /* Surfaces */
+  --bg: #0a0d14;            /* page / letterbox */
+  --stage: #0d1119;         /* the 16:9 stage */
+  --surface: #131925;       /* cards, nodes */
+  --surface-2: #1a2231;     /* raised / hover */
+  --line: #232c3d;          /* hairlines, idle connectors */
+  --line-strong: #34405a;
+
+  /* Text */
+  --text: #eef2f8;
+  --text-2: #a3aec2;        /* secondary */
+  --text-3: #6b778d;        /* tertiary, captions */
+
+  /* Accent: one accent only. Use sparingly, for the thing that matters now. */
+  --accent: #7c8cff;
+  --accent-soft: rgba(124, 140, 255, 0.14);
+  --accent-glow: rgba(124, 140, 255, 0.45);
+
+  /* Semantic */
+  --success: #3ddc97;
+  --success-soft: rgba(61, 220, 151, 0.14);
+  --warning: #f5b85c;
+  --warning-soft: rgba(245, 184, 92, 0.14);
+  --danger: #ff6b6b;
+  --danger-soft: rgba(255, 107, 107, 0.14);
+
+  /* Type */
+  --font-sans: 'Inter Variable', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Type scale on the 1920x1080 stage */
+  --fs-display: 96px;
+  --fs-h1: 64px;
+  --fs-h2: 44px;
+  --fs-body: 30px;
+  --fs-small: 22px;
+  --fs-micro: 17px;
+
+  /* Shape and motion */
+  --radius: 14px;
+  --radius-lg: 22px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html, body, #root {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+.mono { font-family: var(--font-mono); font-feature-settings: 'zero' 1; }
+.tabular { font-variant-numeric: tabular-nums; }
