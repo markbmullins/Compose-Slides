@@ -90,6 +90,14 @@ mode; then build, typecheck, lint, and show me representative screenshots.
 
 When the deck is ready to host, ask the agent to follow the [deployment skill](.agents/skills/deploy-presentation/SKILL.md) and name Cloudflare or Vercel as the target.
 
+## Components
+
+The library includes more than the deck shell. [The component guide](docs/components.md) shows how to combine headings, cards, badges, icon tiles, callouts, diagram nodes and paths, animated counts, staggered items, a data-driven comparison chart, and a timed sequence diagram. These are the same visual building blocks used by the presentation this framework was extracted from. Content is passed as props; the library keeps no client-specific copy or data.
+
+| Build a slide | Guide attention | Show data |
+| --- | --- | --- |
+| `SlideFrame`, `SlideHeading`, `SlideCard`, `MotionCard`, `IconTile`, `Badge`, `QuoteCallout` | `Reveal`, `StepSequence`, `StaggeredItem`, `DrawPath`, `DiagramNode` | `CountUp`, `ComparisonBarChart`, `SequenceDiagram` |
+
 ## Live sync and WebSockets
 
 Without a control key, the deck and notes use `BroadcastChannel` for same-browser communication. With a key, each opens a WebSocket at `/ws?k=…`. The deck owns the current position and timer; the presenter sends commands or raw keys back, so scene-specific keyboard shortcuts still work. The client reconnects after network loss or phone sleep and sends a hello message to recover the latest state.

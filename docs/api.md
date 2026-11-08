@@ -9,6 +9,13 @@
 | `SlideFrame` | Full-stage scene surface. Props: `children`, optional `className`, `style`. |
 | `StepSequence` | Reveal one item per step. Props: `step`, `items`, `renderItem`, optional `className`. |
 | `Reveal` | Animate a child as `show` changes. Optional `delay`, `className`, `style`. |
+| `SlideHeading` | Section label, title, and optional subtitle. Supports `titleAs`, wrapper and child class names. |
+| `SlideCard`, `MotionCard` | Token-driven card surfaces; `MotionCard` accepts Motion div props. |
+| `Badge`, `IconTile`, `QuoteCallout` | Small presentational surfaces for labels, icons, and emphasized statements. |
+| `DrawPath`, `DiagramNode` | Animated SVG path and positioned, revealed diagram node. |
+| `CountUp`, `StaggeredItem` | Animated numeric text and sequenced entrance for repeated items. |
+| `ComparisonBarChart` | Data-driven horizontal comparison with ticks, labels, values, notes, and colors. |
+| `SequenceDiagram` | Timed participant lanes and calls. Props: `time`, ordered `lanes`, ordered `calls`, optional `width` and `streamLabel`. |
 | `useTween` | Animate a numeric target with Motion; respects reduced motion. |
 | `readPrintOptions` | Parse `?print`, `?print=final`, and optional `&scenes=id,id`. |
 | `forceReducedMotion` | Call before React mounts when print options exist. |

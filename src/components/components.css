@@ -1,1 +1,42 @@
 .od-slide-frame { width: 100%; height: 100%; position: relative; overflow: hidden; }
+
+/* Low-specificity defaults let a deck's own theme and scene styles take precedence. */
+:where(.cs-heading-eyebrow) { font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: .18em; text-transform: uppercase; color: var(--text-3); }
+:where(.cs-heading-title) { margin: 0; font-size: var(--fs-h1); font-weight: 600; letter-spacing: -.03em; line-height: 1.1; }
+:where(.cs-heading-subtitle) { margin: 0; color: var(--text-2); font-size: var(--fs-body); }
+:where(.cs-card) { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 30px; }
+:where(.cs-badge) { display: inline-flex; align-items: center; font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 5px 11px; }
+:where(.cs-icon-tile) { width: 56px; height: 56px; display: grid; place-items: center; border-radius: var(--radius); background: var(--surface-2); border: 1px solid var(--line-strong); color: var(--text-2); }
+:where(.cs-quote) { margin: 0; padding-left: 30px; border-left: 3px solid var(--accent); font-size: var(--fs-h2); line-height: 1.22; }
+:where(.cs-diagram-node) { display: flex; align-items: center; min-width: 240px; min-height: 90px; padding: 0 30px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius); color: var(--text); font-size: var(--fs-small); }
+:where(.cs-comparison-chart) { display: block; overflow: visible; }
+:where(.cs-comparison-grid) { stroke: var(--line); stroke-width: 1; }
+:where(.cs-comparison-tick) { font-family: var(--font-mono); font-size: var(--fs-micro); fill: var(--text-3); text-anchor: middle; }
+:where(.cs-comparison-rowlabel) { font-size: var(--fs-small); fill: var(--text-2); }
+:where(.cs-comparison-value) { font-family: var(--font-mono); font-size: var(--fs-body); font-weight: 600; fill: var(--text); }
+:where(.cs-comparison-note) { font-size: var(--fs-small); fill: var(--text-3); }
+
+/* Timed sequence diagram. Colors come from each call and the consuming theme. */
+.cs-sequence { position: relative; }
+.cs-sequence-lanes { position: relative; height: 62px; }
+.cs-sequence-lane { position: absolute; top: 0; translate: -50% 0; width: 192px; padding: 9px 10px; text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; transition: border-color .3s, box-shadow .3s; }
+.cs-sequence-lane.is-hot { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent-soft), 0 10px 30px -12px var(--accent-glow); }
+.cs-sequence-lane-name { font-size: 17px; font-weight: 600; letter-spacing: -.01em; white-space: nowrap; }
+.cs-sequence-lane-sub { margin-top: 2px; font-size: 12.5px; color: var(--text-3); letter-spacing: .04em; }
+.cs-sequence-svg { display: block; margin-top: 8px; overflow: visible; }
+.cs-sequence-lifeline { stroke: var(--line); stroke-width: 1.5; stroke-dasharray: 3 6; transition: stroke .3s; }
+.cs-sequence-lifeline.is-hot { stroke: color-mix(in srgb, var(--accent) 55%, transparent); }
+.cs-sequence-call { opacity: .5; transition: opacity .4s; }
+.cs-sequence-call.is-now { opacity: 1; }
+.cs-sequence-line { fill: none; stroke: var(--c); stroke-width: 2; stroke-linecap: round; }
+.cs-sequence-call.is-dashed .cs-sequence-line { stroke-dasharray: 6 5; }
+.cs-sequence-head { fill: none; stroke: var(--c); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.cs-sequence-call.is-now .cs-sequence-line, .cs-sequence-call.is-now .cs-sequence-head { filter: drop-shadow(0 0 6px var(--c)); }
+.cs-sequence-packet { fill: var(--c); filter: drop-shadow(0 0 8px var(--c)); }
+.cs-sequence-label { font-family: var(--font-mono); font-size: 14.5px; fill: var(--text); text-anchor: middle; paint-order: stroke; stroke: var(--stage); stroke-width: 6px; stroke-linejoin: round; }
+.cs-sequence-label.is-start { text-anchor: start; }
+.cs-sequence-call.is-now .cs-sequence-label { fill: var(--c); font-weight: 600; }
+.cs-sequence-call.is-dashed.is-now .cs-sequence-label { fill: var(--text); }
+.cs-sequence-stream-bg { fill: color-mix(in srgb, var(--text-2) 6%, transparent); stroke: var(--line); }
+.cs-sequence-stream-line { stroke: var(--text-3); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 2 12; }
+.cs-sequence-stream-line.is-live { stroke: var(--text-2); }
