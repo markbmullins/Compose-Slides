@@ -24,7 +24,7 @@ function Frame({
       <footer>
         <span>AN ILLUSTRATIVE CITY STUDY</span>
         <span>
-          COMPOSE SLIDES <b>·</b> {number} / 04
+          KINETIC SLIDES <b>·</b> {number} / 04
         </span>
       </footer>
     </SlideFrame>

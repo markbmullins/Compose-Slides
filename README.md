@@ -1,8 +1,8 @@
-# Compose Slides
+# Kinetic Slides
 
 **Code the moments between your slides.**
 
-Some slides need timing. You want the chart to build while you explain it, the next branch to wait its turn, and your notes to follow on a second screen. Compose Slides handles those mechanics in React, then prints every step cleanly.
+Some slides need timing. You want the chart to build while you explain it, the next branch to wait its turn, and your notes to follow on a second screen. Kinetic Slides handles those mechanics in React, then prints every step cleanly.
 
 The screenshots come from *Fieldnotes*, a working demo about two routes through the same neighborhood. The travel times are synthetic.
 
@@ -27,19 +27,19 @@ Open the address Vite prints. Use **→ / Space** to advance a step, **←** to 
 | --- | --- |
 | ![Desktop presenter view with live slide preview and speaking cue](docs/images/presenter-desktop.png) | ![Phone presenter view with speaking cue and navigation](docs/images/presenter-phone.png) |
 
-Open `/?presenter` to see the current cue, a live slide preview, the next line, prepared answers, and the timer. On a phone, the preview gives way to a wider cue and thumb-sized controls. The preview is opt-in: pass `showPreview` and load `compose-slides/preview.css`.
+Open `/?presenter` to see the current cue, a live slide preview, the next line, prepared answers, and the timer. On a phone, the preview gives way to a wider cue and thumb-sized controls. The preview is opt-in: pass `showPreview` and load `kinetic-slides/preview.css`.
 
 Notes load when the presenter view opens. For a private deck, `loadProtectedNotes` fetches them from a protected endpoint so they stay out of public static assets.
 
 ## Install and use
 
-Compose Slides is a React 19 library. In an existing React/Vite app, install the runtime and its peer dependencies:
+Kinetic Slides is a React 19 library. In an existing React/Vite app, install the runtime and its peer dependencies:
 
 ```bash
-npm install compose-slides react react-dom motion
+npm install kinetic-slides react react-dom motion
 ```
 
-The first npm release is still pending. Until then, build a local checkout with `npm install && npm run build`, then install that checkout in your app with `npm install /absolute/path/to/Compose-Slides react react-dom motion`.
+The first npm release is still pending. Until then, build a local checkout with `npm install && npm run build`, then install that checkout in your app with `npm install /absolute/path/to/kinetic-slides react react-dom motion`.
 
 Create `src/main.tsx`:
 
@@ -48,9 +48,9 @@ import { createRoot } from 'react-dom/client';
 import {
   Deck, PrintDeck, Reveal, SlideFrame, forceReducedMotion, readPrintOptions,
   type SceneDef, type SceneProps,
-} from 'compose-slides';
-import 'compose-slides/theme.css';
-import 'compose-slides/styles.css';
+} from 'kinetic-slides';
+import 'kinetic-slides/theme.css';
+import 'kinetic-slides/styles.css';
 
 function Opening({ step }: SceneProps) {
   return <SlideFrame>
@@ -73,7 +73,7 @@ Add a `<div id="root"></div>` to your HTML entrypoint. Run your app and press **
 
 ## Motion gallery
 
-These ten examples use neutral content and the same components as the [runnable gallery](demo/src/gallery.tsx). Each GIF was recorded from that demo. Copy a component into a scene, pass your own data, and use `step` when the reveal should follow the audience's next keypress. Import the components from `compose-slides`.
+These ten examples use neutral content and the same components as the [runnable gallery](demo/src/gallery.tsx). Each GIF was recorded from that demo. Copy a component into a scene, pass your own data, and use `step` when the reveal should follow the audience's next keypress. Import the components from `kinetic-slides`.
 
 | [Progress](#progress-split) | [Journey](#drawn-journey) | [Bar charts](#bar-charts) | [Architecture](#system-flow) | [Sequence](#sequence-story) |
 | --- | --- | --- | --- | --- |
@@ -232,8 +232,8 @@ Start with a new React/Vite app and the [getting started guide](docs/getting-sta
 
 ```text
 Read AGENTS.md and .agents/skills/create-presentation/SKILL.md in the
-Compose Slides repository. Build a presentation for [audience] about [topic]
-in a separate React/Vite app using compose-slides. Use the demo as a reference.
+Kinetic Slides repository. Build a presentation for [audience] about [topic]
+in a separate React/Vite app using kinetic-slides. Use the demo as a reference.
 Create reusable scene components, define each reveal as a step, and write
 presenter notes with one cue per step. Keep my content and assets in the new
 app. Check the deck, presenter view at desktop and phone widths, and print

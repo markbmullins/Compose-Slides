@@ -21,7 +21,7 @@ const browser = await chromium.launch({
 });
 await mkdir('docs/images/motion', { recursive: true });
 for (const id of (process.argv.length > 2 ? process.argv.slice(2) : galleryIds)) {
-  const dir = `/tmp/compose-gif-${id}`;
+  const dir = `/tmp/kinetic-gif-${id}`;
   await mkdir(dir, { recursive: true });
   const page = await browser.newPage({ viewport: { width: 1200, height: 675 }, deviceScaleFactor: 1 });
   await page.goto(`${base}/?gallery=${id}`);

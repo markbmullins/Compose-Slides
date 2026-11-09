@@ -1,21 +1,21 @@
-# Get started with Compose Slides
+# Get started with Kinetic Slides
 
 This guide starts from an existing React 19 app using Vite. You will add a two-step slide, a presenter view with notes, and print mode. The [demo](../demo/src/main.tsx) is a complete working example.
 
 ## 1. Install the package
 
 ```bash
-npm install compose-slides react react-dom motion
+npm install kinetic-slides react react-dom motion
 ```
 
-The npm package has not been released yet. To use this repository before the first release, run `npm install && npm run build` here and install the checkout in your app with `npm install /absolute/path/to/Compose-Slides react react-dom motion`.
+The npm package has not been released yet. To use this repository before the first release, run `npm install && npm run build` here and install the checkout in your app with `npm install /absolute/path/to/kinetic-slides react react-dom motion`.
 
 ## 2. Define your slides
 
 Create `src/scenes.tsx`:
 
 ```tsx
-import { Reveal, SlideFrame, type SceneDef, type SceneProps } from 'compose-slides';
+import { Reveal, SlideFrame, type SceneDef, type SceneProps } from 'kinetic-slides';
 
 function Opening({ step }: SceneProps) {
   return <SlideFrame>
@@ -36,7 +36,7 @@ export const scenes: SceneDef[] = [
 Create `src/notes.ts`:
 
 ```ts
-import type { NotesMap } from 'compose-slides';
+import type { NotesMap } from 'kinetic-slides';
 
 export const notes: NotesMap = {
   opening: {
@@ -58,12 +58,12 @@ Create `src/main.tsx` and make sure your HTML contains `<div id="root"></div>`:
 ```tsx
 import { StrictMode, Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Deck, PrintDeck, forceReducedMotion, readPrintOptions } from 'compose-slides';
-import 'compose-slides/theme.css';
-import 'compose-slides/styles.css';
+import { Deck, PrintDeck, forceReducedMotion, readPrintOptions } from 'kinetic-slides';
+import 'kinetic-slides/theme.css';
+import 'kinetic-slides/styles.css';
 import { scenes } from './scenes';
 
-const PresenterView = lazy(() => import('compose-slides/presenter'));
+const PresenterView = lazy(() => import('kinetic-slides/presenter'));
 const print = readPrintOptions();
 if (print) forceReducedMotion();
 
@@ -82,7 +82,7 @@ createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictM
 
 Start Vite. The audience deck is at `/`; `/?presenter` shows notes in a second window; `/?print` renders all steps for printing; `/?print=final` renders the final step of each scene. Two windows in the same browser synchronize through `BroadcastChannel`. Cross-device control uses the optional [WebSocket relay](sync.md) and [deployment skill](../.agents/skills/deploy-presentation/SKILL.md).
 
-Import `compose-slides/preview.css` and set `showPreview` on `PresenterView` to show the current slide beside the notes on wide screens. This renders the scene a second time, so leave it off for scenes that perform side effects on mount.
+Import `kinetic-slides/preview.css` and set `showPreview` on `PresenterView` to show the current slide beside the notes on wide screens. This renders the scene a second time, so leave it off for scenes that perform side effects on mount.
 
 ## 5. Customize the presentation
 

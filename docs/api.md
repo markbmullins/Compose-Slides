@@ -4,7 +4,7 @@
 | --- | --- |
 | `Deck` | Live stage, keyboard navigation, progress, timer and sync. Props: `scenes`. |
 | `PrintDeck` | Printable pages. Props: `scenes`, `options`. |
-| `PresenterView` (`/presenter`) | Speaker UI. Props: `scenes`, `loadNotes`, optional `sceneControls` map and `showPreview` (renders the current scene in the desktop notes view; import `compose-slides/preview.css`). |
+| `PresenterView` (`/presenter`) | Speaker UI. Props: `scenes`, `loadNotes`, optional `sceneControls` map and `showPreview` (renders the current scene in the desktop notes view; import `kinetic-slides/preview.css`). |
 | `PairView` (`/pair`) | Control-key entry. Props: `next` (`deck` or `presenter`), optional `verify` (default true; false for a local dev server). |
 | `SlideFrame` | Full-stage scene surface. Props: `children`, optional `className`, `style`. |
 | `StepSequence` | Reveal one item per step. Props: `step`, `items`, `renderItem`, optional `className`. |
@@ -32,4 +32,4 @@
 
 `NotesMap` maps scene IDs to `SceneNotes`. Each entry has a `goal` and `cues: {phase, say, do?}[]`. Optional fields are `principle`, `qa`, `timing`, and `reminders`.
 
-Import the default token sheet from `compose-slides/theme.css` and component CSS from `compose-slides/styles.css`. Override tokens in your own stylesheet loaded afterward.
+Import the default token sheet from `kinetic-slides/theme.css` and component CSS from `kinetic-slides/styles.css`. Override tokens in your own stylesheet loaded afterward.

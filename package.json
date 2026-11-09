@@ -1,5 +1,5 @@
 {
-  "name": "compose-slides",
+  "name": "kinetic-slides",
   "version": "0.1.0",
   "description": "A React presentation runtime with motion, presenter notes, print export, and live sync",
   "type": "module",
@@ -79,11 +79,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/markbmullins/Compose-Slides.git"
+    "url": "git+https://github.com/markbmullins/kinetic-slides.git"
   },
-  "homepage": "https://github.com/markbmullins/Compose-Slides#readme",
+  "homepage": "https://github.com/markbmullins/kinetic-slides#readme",
   "bugs": {
-    "url": "https://github.com/markbmullins/Compose-Slides/issues"
+    "url": "https://github.com/markbmullins/kinetic-slides/issues"
   },
   "keywords": [
     "presentations",

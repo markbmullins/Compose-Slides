@@ -1,6 +1,6 @@
-# Compose a slide
+# Build a slide
 
-Compose Slides provides a deck runtime and a set of visual components. Content and theme stay in the consuming presentation. Import components from `compose-slides`, then load `compose-slides/theme.css` and `compose-slides/styles.css` once in the app entrypoint. Load your own CSS afterward to override the design tokens.
+Kinetic Slides provides a deck runtime and a set of visual components. Content and theme stay in the consuming presentation. Import components from `kinetic-slides`, then load `kinetic-slides/theme.css` and `kinetic-slides/styles.css` once in the app entrypoint. Load your own CSS afterward to override the design tokens.
 
 ## Structure and surfaces
 
@@ -17,7 +17,7 @@ Compose Slides provides a deck runtime and a set of visual components. Content a
 These components use theme variables and low-specificity defaults. Pass `className` or the `SlideHeading` class props to shape them for your presentation without copying their base styles.
 
 ```tsx
-import { Badge, IconTile, SlideCard, SlideHeading } from 'compose-slides';
+import { Badge, IconTile, SlideCard, SlideHeading } from 'kinetic-slides';
 
 function Overview() {
   return <>
@@ -45,7 +45,7 @@ function Overview() {
 Scenes should derive visible state from `SceneProps.step`. Pass `reduce` to `CountUp` and `StaggeredItem` when `useReducedMotion()` is active, and settle the scene before print export. `Reveal`, `DrawPath`, and `DiagramNode` also accept a `show` condition tied to the step.
 
 ```tsx
-import { DiagramNode, DrawPath } from 'compose-slides';
+import { DiagramNode, DrawPath } from 'kinetic-slides';
 
 function Journey({ step }: { step: number }) {
   return <div style={{ position: 'relative', width: 900, height: 200 }}>
@@ -63,7 +63,7 @@ function Journey({ step }: { step: number }) {
 `ComparisonBarChart` draws labeled horizontal or vertical bars, ticks, values, and optional notes. It accepts data and colors as props, so the chart does not know anything about your presentation's subject. `max` sets the scale; `formatValue` formats both ticks and values. The horizontal layout defaults to 1600 × `(bars.length × 92 + 40)` on the 1920 × 1080 stage. Set `orientation="vertical"` for columns, and use `animation={{ duration, stagger }}` to tune pacing. `plotWidth` sizes the horizontal measure; `plotHeight` sizes vertical columns.
 
 ```tsx
-import { ComparisonBarChart } from 'compose-slides';
+import { ComparisonBarChart } from 'kinetic-slides';
 
 <ComparisonBarChart
   ariaLabel="Time by option"
@@ -83,7 +83,7 @@ import { ComparisonBarChart } from 'compose-slides';
 `SequenceDiagram` renders participants as lanes and timed calls as arrows. It also supports a call to itself and a `stream` band for repeated messages. Pass the current playback `time` from your scene; the component derives the active call and highlighted lanes. Keep calls ordered by `at`. Colors and labels come from your data, so the same component works for service calls, manufacturing steps, or a customer journey.
 
 ```tsx
-import { SequenceDiagram } from 'compose-slides';
+import { SequenceDiagram } from 'kinetic-slides';
 
 <SequenceDiagram
   time={playbackTime}

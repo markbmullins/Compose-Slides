@@ -51,7 +51,7 @@ export function Gallery({ id }: { id: GalleryId }) {
     <div className="gallery-stage">
       <div className="gallery-top">
         <b>
-          COMPOSE<span>·</span>SLIDES
+          KINETIC<span>·</span>SLIDES
         </b>
         <span>COMPONENT GALLERY / {meta[id][0]}</span>
       </div>
