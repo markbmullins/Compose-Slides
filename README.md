@@ -39,7 +39,7 @@ Kinetic Slides is a React 19 library. In an existing React/Vite app, install the
 npm install kinetic-slides react react-dom motion
 ```
 
-The first npm release is still pending. Until then, build a local checkout with `npm install && npm run build`, then install that checkout in your app with `npm install /absolute/path/to/kinetic-slides react react-dom motion`.
+Install the published package from npm. The source checkout and runnable demo are in this repository.
 
 Create `src/main.tsx`:
 

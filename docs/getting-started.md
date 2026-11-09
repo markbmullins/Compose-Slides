@@ -8,7 +8,7 @@ This guide starts from an existing React 19 app using Vite. You will add a two-s
 npm install kinetic-slides react react-dom motion
 ```
 
-The npm package has not been released yet. To use this repository before the first release, run `npm install && npm run build` here and install the checkout in your app with `npm install /absolute/path/to/kinetic-slides react react-dom motion`.
+Install the published package from npm. Use this repository if you want to run the demo or contribute to the framework.
 
 ## 2. Define your slides
 

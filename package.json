@@ -1,6 +1,6 @@
 {
   "name": "kinetic-slides",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A React presentation runtime with motion, presenter notes, print export, and live sync",
   "type": "module",
   "license": "MIT",
